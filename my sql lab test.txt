@@ -1,0 +1,312 @@
+mysql> create database companyTcs;
+Query OK, 1 row affected (0.03 sec)
+
+mysql> use companyTcs;
+Database changed
+mysql> create table emp(
+    -> eno int primary key,
+    -> ename varcher(30) not null,
+    -> salary float(10,2),
+    -> pno int(10),
+    -> dno int(10),
+    -> designation varchar(30) not null);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'varcher(30) not null,
+salary float(10,2),
+pno int(10),
+dno int(10),
+designation ' at line 3
+mysql> create table emp(
+    -> eno int primary key,
+    -> ename varchar(30) not null,
+    -> salary float(10,2),
+    -> pno int(10),
+    -> dno int(10),
+    -> designation varchar(30) not null);
+Query OK, 0 rows affected, 3 warnings (0.10 sec)
+
+mysql> create table project(
+    -> pnonint primary key,
+    -> \
+    ->
+    -> );
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'primary key,
+
+
+)' at line 2
+mysql> create table project(
+    -> pno int primary key,
+    -> pname varchar(30) not null,
+    -> budget float(10,2),
+    -> dno int(10));
+Query OK, 0 rows affected, 2 warnings (0.07 sec)
+
+mysql> create table dept(
+    -> dno int primary key,
+    -> dname varchar(30) not null,
+    -> location varchar(30));
+Query OK, 0 rows affected (0.05 sec)
+
+mysql> alter table emp
+    -> add foreign key(dno) references dept(dno);
+Query OK, 0 rows affected (0.47 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+mysql> describe project;
++--------+-------------+------+-----+---------+-------+
+| Field  | Type        | Null | Key | Default | Extra |
++--------+-------------+------+-----+---------+-------+
+| pno    | int         | NO   | PRI | NULL    |       |
+| pname  | varchar(30) | NO   |     | NULL    |       |
+| budget | float(10,2) | YES  |     | NULL    |       |
+| dno    | int         | YES  |     | NULL    |       |
++--------+-------------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+
+mysql> describe dept;
++----------+-------------+------+-----+---------+-------+
+| Field    | Type        | Null | Key | Default | Extra |
++----------+-------------+------+-----+---------+-------+
+| dno      | int         | NO   | PRI | NULL    |       |
+| dname    | varchar(30) | NO   |     | NULL    |       |
+| location | varchar(30) | YES  |     | NULL    |       |
++----------+-------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+mysql> insert into emp values(101,"abhi",19000.50,"Devloper",20111,2);
+ERROR 1366 (HY000): Incorrect integer value: 'Devloper' for column 'pno' at row 1
+mysql> insert into emp values(101,"abhi",19000.50,20111,2,"Devloper");
+ERROR 1452 (23000): Cannot add or update a child row: a foreign key constraint fails (`companytcs`.`emp`, CONSTRAINT `emp_ibfk_1` FOREIGN KEY (`dno`) REFERENCES `dept` (`dno`))
+mysql> drop table emp;
+Query OK, 0 rows affected (0.04 sec)
+
+mysql> create table emp(
+    -> eno int primary key,
+    -> ename varchar(30) not null,
+    -> salary float(10,2)
+    -> designation varchar(30),
+    -> pno int(10),
+    -> dno int(10));
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'designation varchar(30),
+pno int(10),
+dno int(10))' at line 5
+mysql> create table emp(
+    -> eno int primary key,
+    -> ename varchar(30) not null,
+    -> salary float(10,2),
+    -> designation varchar(30),
+    -> pno int(10),
+    -> dno int(10));
+Query OK, 0 rows affected, 3 warnings (0.09 sec)
+
+mysql> describe emp;
++-------------+-------------+------+-----+---------+-------+
+| Field       | Type        | Null | Key | Default | Extra |
++-------------+-------------+------+-----+---------+-------+
+| eno         | int         | NO   | PRI | NULL    |       |
+| ename       | varchar(30) | NO   |     | NULL    |       |
+| salary      | float(10,2) | YES  |     | NULL    |       |
+| designation | varchar(30) | YES  |     | NULL    |       |
+| pno         | int         | YES  |     | NULL    |       |
+| dno         | int         | YES  |     | NULL    |       |
++-------------+-------------+------+-----+---------+-------+
+6 rows in set (0.00 sec)
+
+mysql>  insert into emp values(101,"abhi",19000.50,20111,2,"Devloper");
+ERROR 1366 (HY000): Incorrect integer value: 'Devloper' for column 'dno' at row 1
+mysql> insert into emp values(103,"abhi",19000.50,"Devloper",20111,2);
+Query OK, 1 row affected (0.06 sec)
+
+mysql> insert into emp values(104,"amish",21000.50,"Tester",20113,4);
+Query OK, 1 row affected (0.08 sec)
+
+mysql> insert into emp values(105,"Sangram",27000.50,"Manager",20114,5);
+Query OK, 1 row affected (0.06 sec)
+
+mysql> insert into emp values(106,"Raj",28000.50,"SeniorDeveloper",20115,6);
+Query OK, 1 row affected (0.05 sec)
+
+mysql> insert into emp values(107,"rohit",29000.50,"QualityAnalyst",20117,8);
+Query OK, 1 row affected (0.05 sec)
+
+mysql> insert into emp values(108,"swapnil",27000.50,"Manager",20118,9);
+Query OK, 1 row affected (0.04 sec)
+
+mysql> insert into emp values(109,"sunny",21000.50,"Tester",20119,4);
+Query OK, 1 row affected (0.04 sec)
+
+mysql> insert into emp values(110,"vaibhav",25000.50,"SeniorDeveloper",20112,7);
+Query OK, 1 row affected (0.02 sec)
+
+mysql> insert into emp values(111,"nikhil",26000.50,"Tester",20121,8);
+Query OK, 1 row affected (0.08 sec)
+
+mysql> insert into emp values(112,"ani",28000.50,"Tester",20121,9);
+Query OK, 1 row affected (0.04 sec)
+
+mysql> select * from emp
+    -> 0
+    -> );
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '0
+)' at line 2
+mysql> select * from emp;
++-----+---------+----------+-----------------+-------+------+
+| eno | ename   | salary   | designation     | pno   | dno  |
++-----+---------+----------+-----------------+-------+------+
+| 103 | abhi    | 19000.50 | Devloper        | 20111 |    2 |
+| 104 | amish   | 21000.50 | Tester          | 20113 |    4 |
+| 105 | Sangram | 27000.50 | Manager         | 20114 |    5 |
+| 106 | Raj     | 28000.50 | SeniorDeveloper | 20115 |    6 |
+| 107 | rohit   | 29000.50 | QualityAnalyst  | 20117 |    8 |
+| 108 | swapnil | 27000.50 | Manager         | 20118 |    9 |
+| 109 | sunny   | 21000.50 | Tester          | 20119 |    4 |
+| 110 | vaibhav | 25000.50 | SeniorDeveloper | 20112 |    7 |
+| 111 | nikhil  | 26000.50 | Tester          | 20121 |    8 |
+| 112 | ani     | 28000.50 | Tester          | 20121 |    9 |
++-----+---------+----------+-----------------+-------+------+
+10 rows in set (0.00 sec)
+
+mysql> insert into project values(20121,"Tester",28000.50,9);
+Query OK, 1 row affected (0.02 sec)
+
+mysql> insert into project values(20111,"Devloper",19000.50,2);
+Query OK, 1 row affected (0.04 sec)
+
+mysql> insert into project values(20114,"Manager",27000.50,5);
+Query OK, 1 row affected (0.04 sec)
+
+mysql> select * from project
+    -> );
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ')' at line 2
+mysql> select * from project;
++-------+----------+----------+------+
+| pno   | pname    | budget   | dno  |
++-------+----------+----------+------+
+| 20111 | Devloper | 19000.50 |    2 |
+| 20114 | Manager  | 27000.50 |    5 |
+| 20121 | Tester   | 28000.50 |    9 |
++-------+----------+----------+------+
+3 rows in set (0.00 sec)
+
+mysql> insert into dept values(2,"Devloper","Chennai");
+Query OK, 1 row affected (0.05 sec)
+
+mysql> insert into dept values(5,"Manager","New Delhi");
+Query OK, 1 row affected (0.04 sec)
+
+mysql> insert into dept values(9,"Tester","Mumbai");
+Query OK, 1 row affected (0.05 sec)
+
+mysql> select * from dept;
++-----+----------+-----------+
+| dno | dname    | location  |
++-----+----------+-----------+
+|   2 | Devloper | Chennai   |
+|   5 | Manager  | New Delhi |
+|   9 | Tester   | Mumbai    |
++-----+----------+-----------+
+3 rows in set (0.00 sec)
+
+mysql> alter table project
+    -> rename column pname to projectName;
+Query OK, 0 rows affected (0.07 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> select * from projects;
+ERROR 1146 (42S02): Table 'companytcs.projects' doesn't exist
+mysql> select * from project
+    -> );
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ')' at line 2
+mysql> select * from project;
++-------+-------------+----------+------+
+| pno   | projectName | budget   | dno  |
++-------+-------------+----------+------+
+| 20111 | Devloper    | 19000.50 |    2 |
+| 20114 | Manager     | 27000.50 |    5 |
+| 20121 | Tester      | 28000.50 |    9 |
++-------+-------------+----------+------+
+3 rows in set (0.00 sec)
+
+mysql> alter table project
+    -> add hoursNeeded varchar(30);
+Query OK, 0 rows affected (0.06 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> select * from project;
++-------+-------------+----------+------+-------------+
+| pno   | projectName | budget   | dno  | hoursNeeded |
++-------+-------------+----------+------+-------------+
+| 20111 | Devloper    | 19000.50 |    2 | NULL        |
+| 20114 | Manager     | 27000.50 |    5 | NULL        |
+| 20121 | Tester      | 28000.50 |    9 | NULL        |
++-------+-------------+----------+------+-------------+
+3 rows in set (0.00 sec)
+
+mysql> select ename,sum(salary),dno from emp Group by dno;
++---------+-------------+------+
+| ename   | sum(salary) | dno  |
++---------+-------------+------+
+| abhi    |    19000.50 |    2 |
+| amish   |    42001.00 |    4 |
+| Sangram |    27000.50 |    5 |
+| Raj     |    28000.50 |    6 |
+| rohit   |    55001.00 |    8 |
+| swapnil |    55001.00 |    9 |
+| vaibhav |    25000.50 |    7 |
++---------+-------------+------+
+7 rows in set (0.01 sec)
+
+mysql> update emp set salary=salary +(salary * 10 / 100) where salary > 20000;
+Query OK, 9 rows affected (0.06 sec)
+Rows matched: 9  Changed: 9  Warnings: 0
+
+mysql> select * from emp;
++-----+---------+----------+-----------------+-------+------+
+| eno | ename   | salary   | designation     | pno   | dno  |
++-----+---------+----------+-----------------+-------+------+
+| 103 | abhi    | 19000.50 | Devloper        | 20111 |    2 |
+| 104 | amish   | 23100.55 | Tester          | 20113 |    4 |
+| 105 | Sangram | 29700.55 | Manager         | 20114 |    5 |
+| 106 | Raj     | 30800.55 | SeniorDeveloper | 20115 |    6 |
+| 107 | rohit   | 31900.55 | QualityAnalyst  | 20117 |    8 |
+| 108 | swapnil | 29700.55 | Manager         | 20118 |    9 |
+| 109 | sunny   | 23100.55 | Tester          | 20119 |    4 |
+| 110 | vaibhav | 27500.55 | SeniorDeveloper | 20112 |    7 |
+| 111 | nikhil  | 28600.55 | Tester          | 20121 |    8 |
+| 112 | ani     | 30800.55 | Tester          | 20121 |    9 |
++-----+---------+----------+-----------------+-------+------+
+10 rows in set (0.00 sec)
+mysql>  update project set budget=budget +(budget * 5 / 100) where budget > 30000;
+Query OK, 0 rows affected (0.00 sec)
+Rows matched: 0  Changed: 0  Warnings: 0
+
+mysql> select * from project;
++-------+-------------+----------+------+-------------+
+| pno   | projectName | budget   | dno  | hoursNeeded |
++-------+-------------+----------+------+-------------+
+| 20111 | Devloper    | 19000.50 |    2 | NULL        |
+| 20114 | Manager     | 27000.50 |    5 | NULL        |
+| 20121 | Tester      | 28000.50 |    9 | NULL        |
++-------+-------------+----------+------+-------------+
+3 rows in set (0.00 sec)
+
+mysql> select sum(salary)
+    -> from emp;
++-------------+
+| sum(salary) |
++-------------+
+|   274205.46 |
++-------------+
+1 row in set (0.02 sec)
+
+mysql> select dno, sum(salary), dno from emp group by dno;
++------+-------------+------+
+| dno  | sum(salary) | dno  |
++------+-------------+------+
+|    2 |    19000.50 |    2 |
+|    4 |    46201.10 |    4 |
+|    5 |    29700.55 |    5 |
+|    6 |    30800.55 |    6 |
+|    8 |    60501.10 |    8 |
+|    9 |    60501.10 |    9 |
+|    7 |    27500.55 |    7 |
++------+-------------+------+
+7 rows in set (0.00 sec)
