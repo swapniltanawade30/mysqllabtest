@@ -1,0 +1,311 @@
+Enter password: ************
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 15
+Server version: 8.0.31 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2022, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> use my_db
+Database changed
+mysql> create database Bigbazar
+    -> ;
+Query OK, 1 row affected (0.27 sec)
+
+mysql> use Bigbazer;
+ERROR 1049 (42000): Unknown database 'bigbazer'
+mysql> use Bigbazar;
+Database changed
+mysql> create table product(
+    -> p_id int not null,
+    -> p_name Varchar(20) not null,
+    -> quantity int not null
+    -> primary key(p_id)
+    -> );
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '(p_id)
+)' at line 5
+mysql> create table product(
+    -> p_id int not null,
+    -> p_name Varchar(20) not null,
+    -> quantity int not null
+    -> primary key(P_id)
+    -> );
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '(P_id)
+)' at line 5
+mysql> create table product(
+    -> p_id int not null,
+    -> p_name Varchar(20) not null,
+    -> quantity int not null,
+    -> primary key(p_id)
+    -> );
+Query OK, 0 rows affected (0.27 sec)
+
+mysql> insert into product values(202,'Cold Drinks',50);
+Query OK, 1 row affected (0.24 sec)
+
+mysql> insert into product values(203,'Biscuits',100);
+Query OK, 1 row affected (0.15 sec)
+
+mysql> insert into product values(204,'cloths',200);
+Query OK, 1 row affected (16.26 sec)
+
+mysql> insert into product values(205,'Oil',150);
+Query OK, 1 row affected (3.37 sec)
+
+mysql> select*from product
+    -> ;
++------+-------------+----------+
+| p_id | p_name      | quantity |
++------+-------------+----------+
+|  202 | Cold Drinks |       50 |
+|  203 | Biscuits    |      100 |
+|  204 | cloths      |      200 |
+|  205 | Oil         |      150 |
++------+-------------+----------+
+4 rows in set (0.68 sec)
+
+mysql> create table employee(
+    -> e_id int not null,
+    -> e_name varchar(20) not null,
+    -> e_branch varchar(20) not null,
+    -> primary key(w_id)
+    -> );
+ERROR 1072 (42000): Key column 'w_id' doesn't exist in table
+mysql> create table employee(
+    -> e_id int not null,
+    -> e_name varchar(20) not null,
+    -> e_branch varchar(20) not null,
+    -> primary key(e_id)
+    -> );
+Query OK, 0 rows affected (2.60 sec)
+
+mysql> insert into employee values(10,'Abhi','Bhandup');
+Query OK, 1 row affected (0.07 sec)
+
+mysql> insert into employee values(11,'Amish','Thane');
+Query OK, 1 row affected (1.04 sec)
+
+mysql> insert into employee values(12,'Tejas','Nerul');
+Query OK, 1 row affected (0.17 sec)
+
+mysql> insert into employee values(13,'Swapnil','Vashi');
+Query OK, 1 row affected (0.70 sec)
+
+mysql> insert into employee values(14,'Vaibhav','Ghatkoper');
+Query OK, 1 row affected (0.07 sec)
+
+mysql> select*from employee;
++------+---------+-----------+
+| e_id | e_name  | e_branch  |
++------+---------+-----------+
+|   10 | Abhi    | Bhandup   |
+|   11 | Amish   | Thane     |
+|   12 | Tejas   | Nerul     |
+|   13 | Swapnil | Vashi     |
+|   14 | Vaibhav | Ghatkoper |
++------+---------+-----------+
+5 rows in set (0.00 sec)
+
+mysql> select employee.e_name,employee.e_branch,product.p_name,product.quantity
+    -> from employee
+    -> inner join product
+    -> on employee.e_id=product.p_id;
+Empty set (0.30 sec)
+
+mysql> select employee.e_name,product.p_name
+    -> from employee
+    -> left join product
+    -> on employee.e_id=product.p_id;
++---------+--------+
+| e_name  | p_name |
++---------+--------+
+| Abhi    | NULL   |
+| Amish   | NULL   |
+| Tejas   | NULL   |
+| Swapnil | NULL   |
+| Vaibhav | NULL   |
++---------+--------+
+5 rows in set (0.10 sec)
+
+mysql> select employee.e_name,product.p_name
+    -> from employee
+    -> right join product
+    -> on employee.e_id=product.p_id;
++--------+-------------+
+| e_name | p_name      |
++--------+-------------+
+| NULL   | Cold Drinks |
+| NULL   | Biscuits    |
+| NULL   | cloths      |
+| NULL   | Oil         |
++--------+-------------+
+4 rows in set (0.01 sec)
+
+mysql> select*from employee full join product;
++------+---------+-----------+------+-------------+----------+
+| e_id | e_name  | e_branch  | p_id | p_name      | quantity |
++------+---------+-----------+------+-------------+----------+
+|   10 | Abhi    | Bhandup   |  205 | Oil         |      150 |
+|   10 | Abhi    | Bhandup   |  204 | cloths      |      200 |
+|   10 | Abhi    | Bhandup   |  203 | Biscuits    |      100 |
+|   10 | Abhi    | Bhandup   |  202 | Cold Drinks |       50 |
+|   11 | Amish   | Thane     |  205 | Oil         |      150 |
+|   11 | Amish   | Thane     |  204 | cloths      |      200 |
+|   11 | Amish   | Thane     |  203 | Biscuits    |      100 |
+|   11 | Amish   | Thane     |  202 | Cold Drinks |       50 |
+|   12 | Tejas   | Nerul     |  205 | Oil         |      150 |
+|   12 | Tejas   | Nerul     |  204 | cloths      |      200 |
+|   12 | Tejas   | Nerul     |  203 | Biscuits    |      100 |
+|   12 | Tejas   | Nerul     |  202 | Cold Drinks |       50 |
+|   13 | Swapnil | Vashi     |  205 | Oil         |      150 |
+|   13 | Swapnil | Vashi     |  204 | cloths      |      200 |
+|   13 | Swapnil | Vashi     |  203 | Biscuits    |      100 |
+|   13 | Swapnil | Vashi     |  202 | Cold Drinks |       50 |
+|   14 | Vaibhav | Ghatkoper |  205 | Oil         |      150 |
+|   14 | Vaibhav | Ghatkoper |  204 | cloths      |      200 |
+|   14 | Vaibhav | Ghatkoper |  203 | Biscuits    |      100 |
+|   14 | Vaibhav | Ghatkoper |  202 | Cold Drinks |       50 |
++------+---------+-----------+------+-------------+----------+
+20 rows in set (0.15 sec)
+
+mysql> update employee set e_id=202 where e_name='Abhi';
+Query OK, 1 row affected (0.18 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> update employee set e_id=203 where e_name='Amish';
+Query OK, 1 row affected (0.07 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> update employee set e_id=204 where e_name='Tejas';
+Query OK, 1 row affected (0.04 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> update employee set e_id=205 where e_name='Swapnil';
+Query OK, 1 row affected (0.15 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> update employee set e_id=205 where e_name='Vaibhav';
+ERROR 1062 (23000): Duplicate entry '205' for key 'employee.PRIMARY'
+mysql> update employee set e_id=205 where e_name='Swapnil';
+Query OK, 0 rows affected (0.00 sec)
+Rows matched: 1  Changed: 0  Warnings: 0
+
+mysql> select*from employee
+    -> ;
++------+---------+-----------+
+| e_id | e_name  | e_branch  |
++------+---------+-----------+
+|   14 | Vaibhav | Ghatkoper |
+|  202 | Abhi    | Bhandup   |
+|  203 | Amish   | Thane     |
+|  204 | Tejas   | Nerul     |
+|  205 | Swapnil | Vashi     |
++------+---------+-----------+
+5 rows in set (0.00 sec)
+
+mysql> employee.e_name,employee.e_branch,product.p_name,product.quantity
+    -> from employee
+    -> inner join product
+    -> on employee.e_id=product.p_id;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'employee.e_name,employee.e_branch,product.p_name,product.quantity
+from employee
+' at line 1
+mysql> employee.e_name,employee.e_branch,product.p_name,product.quantity
+    -> from employee
+    -> inner join product
+    -> on employee.e_id=product.p_id;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'employee.e_name,employee.e_branch,product.p_name,product.quantity
+from employee
+' at line 1
+mysql> select employee.e_name,employee.e_branch,product.p_name,product.quantity
+    -> from employee
+    -> inner join product
+    -> on employee.e_id=product.p_id;
++---------+----------+-------------+----------+
+| e_name  | e_branch | p_name      | quantity |
++---------+----------+-------------+----------+
+| Abhi    | Bhandup  | Cold Drinks |       50 |
+| Amish   | Thane    | Biscuits    |      100 |
+| Tejas   | Nerul    | cloths      |      200 |
+| Swapnil | Vashi    | Oil         |      150 |
++---------+----------+-------------+----------+
+4 rows in set (0.00 sec)
+
+mysql> select employee.e_name,product.pname
+    -> from employee
+    -> ieft join product
+    -> on employee.e_id=product.p_id;
+ERROR 1054 (42S22): Unknown column 'employee.e_name' in 'field list'
+mysql> select employee.e_name,product.p_name
+    -> from employee
+    -> ieft join product
+    -> on employee.e_id=product.p_id;
+ERROR 1054 (42S22): Unknown column 'employee.e_name' in 'field list'
+mysql> select employee.e_name,product.p_name
+    -> from employee
+    -> right join product
+    -> on employee.e_id=product.p_id;
++---------+-------------+
+| e_name  | p_name      |
++---------+-------------+
+| Abhi    | Cold Drinks |
+| Amish   | Biscuits    |
+| Tejas   | cloths      |
+| Swapnil | Oil         |
++---------+-------------+
+4 rows in set (0.00 sec)
+
+mysql> employee.e_branch,product.quantity
+    -> ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'employee.e_branch,product.quantity' at line 1
+mysql> select employee.e_branch,product.quantity
+    -> from employee
+    -> on employee.e_id=product.p_id;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'on employee.e_id=product.p_id' at line 3
+mysql> select employee.e_branch,product.quantity
+    -> from employee
+    -> right join product
+    -> on employee.e_id=product.p_id;
++----------+----------+
+| e_branch | quantity |
++----------+----------+
+| Bhandup  |       50 |
+| Thane    |      100 |
+| Nerul    |      200 |
+| Vashi    |      150 |
++----------+----------+
+4 rows in set (0.00 sec)
+
+mysql> select*from employee full join product;
++------+---------+-----------+------+-------------+----------+
+| e_id | e_name  | e_branch  | p_id | p_name      | quantity |
++------+---------+-----------+------+-------------+----------+
+|   14 | Vaibhav | Ghatkoper |  205 | Oil         |      150 |
+|   14 | Vaibhav | Ghatkoper |  204 | cloths      |      200 |
+|   14 | Vaibhav | Ghatkoper |  203 | Biscuits    |      100 |
+|   14 | Vaibhav | Ghatkoper |  202 | Cold Drinks |       50 |
+|  202 | Abhi    | Bhandup   |  205 | Oil         |      150 |
+|  202 | Abhi    | Bhandup   |  204 | cloths      |      200 |
+|  202 | Abhi    | Bhandup   |  203 | Biscuits    |      100 |
+|  202 | Abhi    | Bhandup   |  202 | Cold Drinks |       50 |
+|  203 | Amish   | Thane     |  205 | Oil         |      150 |
+|  203 | Amish   | Thane     |  204 | cloths      |      200 |
+|  203 | Amish   | Thane     |  203 | Biscuits    |      100 |
+|  203 | Amish   | Thane     |  202 | Cold Drinks |       50 |
+|  204 | Tejas   | Nerul     |  205 | Oil         |      150 |
+|  204 | Tejas   | Nerul     |  204 | cloths      |      200 |
+|  204 | Tejas   | Nerul     |  203 | Biscuits    |      100 |
+|  204 | Tejas   | Nerul     |  202 | Cold Drinks |       50 |
+|  205 | Swapnil | Vashi     |  205 | Oil         |      150 |
+|  205 | Swapnil | Vashi     |  204 | cloths      |      200 |
+|  205 | Swapnil | Vashi     |  203 | Biscuits    |      100 |
+|  205 | Swapnil | Vashi     |  202 | Cold Drinks |       50 |
++------+---------+-----------+------+-------------+----------+
+20 rows in set (0.00 sec)
+
+mysql>
